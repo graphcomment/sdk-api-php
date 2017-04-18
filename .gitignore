@@ -1,6 +1,7 @@
 *.iml
-.idea
+.idea/
 *.log
 composer.phar
-vendor
+vendor/
 *.lock
+.DS_Store
