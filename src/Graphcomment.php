@@ -25,7 +25,7 @@ class Sdk
     protected $password;
     protected $token;
     protected $websiteId;
-    protected $dir = 'https://graphcomment.com/api';
+    protected $dir = 'https://dev.graphcomment.com/api';
 
     /**
      * Sdk constructor.

@@ -5,3 +5,4 @@ composer.phar
 vendor/
 *.lock
 .DS_Store
+test/
