@@ -33,7 +33,7 @@ This function return a json file containing its "gc_id" that must be save in you
 
 `$client->loginUser('email', 'gc_id');`
 
-to save in our localStorage call this url => http://graphcomment.com/fr/auth.html?gc_token=[TOKEN-without-JWT-only-token]
+to save in localStorage the gc_token, call this url in ajax navigator of user to authenticate him => http://graphcomment.com/fr/auth.html?gc_token=[TOKEN-without-JWT-only-token]
 
 Example : 
 
