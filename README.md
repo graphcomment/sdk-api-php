@@ -29,9 +29,15 @@ after theses lines, you call the functions.
 
 This function return a json file containing its "gc_id" that must be save in your database to authenticate a user that is logging in.
 
-- login a User, this function return the token JWT that you must save in localStorage to authenticate Graphcomment.
+- login a User, this function return the token JWT as JSON that you must save in localStorage to authenticate Graphcomment.
 
 `$client->loginUser('email', 'gc_id');`
+
+to save in our localStorage call this url => http://graphcomment.com/fr/auth.html?gc_token=[TOKEN-without-JWT-only-token]
+
+Example : 
+
+http://graphcomment.com/fr/auth.html?gc_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY5ZjQ5OTk3NzkwOTBkODYyMDgwOTIiLCJ1c2VybmFtZSI6ImRhdmlkIGRqaWFuIiwiZW1haWwiOiJzaXJiYWxkdXJAZ21haWwuY29tIiwiZmFjZWJvb2tfaWQiOiIxMDE1NDE3Mjk2NzQ1MTQ5MSIsImdvb2dsZV9pZCI6IjExNjEwMTAxNzgxODA3MjI5MDk0OCIsInJvbGUiOJ1c2VyIiwicGljdHVyZSI6Ii9pbWFnZXMvYXZhdGFyXzMucG5nIiwibGFuZ3VhZ2UiOiJmciIsImZyb21fd2Vic2l0ZSI6IjU4MWQyMTlmOGRmY2EwMzlhY2MMGZiZiIsInZhbGlkYXRpb24iOnt9LCJpYXQiOjE0OTk2ODYxMjIsImV4cCI6MTUwMjI3ODEyMn0.YyiANmL4-wzu1XGak1SbBmywZOWLHwjYsXtBW-Ikqx4
 
 - Get the list of your users
 
