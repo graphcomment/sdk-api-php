@@ -1,3 +1,5 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/?branch=master)
+
 #Graphcomment SDK API PHP version 1.0
 
 install with composer :
