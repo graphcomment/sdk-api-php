@@ -144,7 +144,7 @@ class Sdk
 
             $this->setToken($result->token);
         } else {
-            echo $res->getBody();
+            return $res->getBody();
         }
     }
 
@@ -174,7 +174,7 @@ class Sdk
                 'http_errors' => false
             ]);
 
-        echo $res->getBody();
+        return $res->getBody();
     }
 
     /**
@@ -212,14 +212,17 @@ class Sdk
                         'contents' => $this->getWebsiteId()
                     ]
                 ],
+                'query' => [
+                    'website_id' => $this->getWebsiteId()
+                ],
                 'http_errors' => false
             ]);
 
         if ($res->getStatusCode() == "200") {
-            echo $res->getBody();
+            return $res->getBody();
         }
         else {
-            echo $res->getBody();
+            return $res->getBody();
         }
     }
 
@@ -244,7 +247,7 @@ class Sdk
                 'http_errors' => false
             ]);
 
-        echo $res->getBody();
+        return $res->getBody();
     }
 
     /**
@@ -269,6 +272,6 @@ class Sdk
                 'http_errors' => false
             ]);
 
-        echo $res->getBody();
+        return $res->getBody();
     }
 }
