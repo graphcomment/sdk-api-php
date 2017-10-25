@@ -226,12 +226,11 @@ class Sdk
     /**
      * loginUser() authenticate a user and return a token to login in graphcomment.
      *
-     * @param string $email
      * @param string $gc_id
      *
      * @return string  json JWT response
      */
-    public function loginUser($email, $gc_id)
+    public function loginUser($gc_id)
     {
         $client = new Client();
         $res = $client->request('POST', $this->getDir() . '/users/loginSdk',
@@ -240,7 +239,6 @@ class Sdk
                     'Authorization' => 'JWT ' . $this->getToken()
                 ],
                 'form_params' => [
-                    'email' => $email,
                     'gc_id' => $gc_id
                 ],
                 'http_errors' => false
