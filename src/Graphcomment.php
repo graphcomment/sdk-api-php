@@ -242,7 +242,8 @@ class Sdk
                     'Authorization' => 'JWT ' . $this->getToken()
                 ],
                 'form_params' => [
-                    'gc_id' => $gc_id
+                    'gc_id' => $gc_id,
+                    'website_id' => $this->getWebsiteId()
                 ],
                 'http_errors' => false
             ]);
