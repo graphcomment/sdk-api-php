@@ -33,7 +33,7 @@ This function return a json file containing its "gc_id" that must be save in you
 
 - login a User, this function return the token JWT as JSON that you must save in localStorage to authenticate Graphcomment.
 
-`$client->loginUser('email', 'gc_id');`
+`$client->loginUser('gc_id');`
 
 to save in localStorage the gc_token, call this url in ajax navigator of user to authenticate him => http://graphcomment.com/fr/auth.html?gc_token=[TOKEN-without-JWT-only-token]
 
