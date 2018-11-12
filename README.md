@@ -54,6 +54,7 @@ Disconnection :
 
 get user's informations, return a JSON.
 
+```
 {
 	gc_id: 'gc_id',
 	username: 'username',
@@ -61,7 +62,7 @@ get user's informations, return a JSON.
 	language : 'en',
 	picture : 'https://graphcomment.com/image.jpg'
 }
-
+```
 - Update a User on Graphcomment
 
 `$client->updateUser('gc_id', 'username', 'email', 'fr', 'https://graphcomment.com/image.jpg');`
