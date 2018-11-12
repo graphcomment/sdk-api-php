@@ -61,22 +61,6 @@ class Sdk
     }
 
     /**
-     * @param mixed $gcSecret
-     */
-    public function setGcSecret($gcSecret)
-    {
-        $this->gcSecret = $gcSecret;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
      * @param mixed $token
      */
     public function setToken($token)
