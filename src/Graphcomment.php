@@ -1,10 +1,10 @@
 <?php
 /**
- * Wrapper API Graphcomment v1.0.
+ * Wrapper API Graphcomment v2.0.
  * @author ddtraceweb <david@semiologic.fr>
- * @copyright 2017 Graphcomment
- * Date: 12/04/2017
- * Time: 15:29
+ * @copyright 2018 Graphcomment
+ * Date: 12/11/2018
+ * Time: 18:37
  */
 
 namespace Graphcomment;
