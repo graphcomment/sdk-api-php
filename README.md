@@ -35,13 +35,20 @@ This function return a json file containing its "gc_id" that must be save in you
 
 `$client->loginUser('gc_id');`
 
-to save in localStorage the gc_token, call this url in ajax navigator of user to authenticate him => http://graphcomment.com/fr/auth.html?gc_token=[TOKEN-without-JWT-only-token]
+to save in localStorage the gc_token, call this url in an iframe with 0px width, 0px width of user to authenticate him => https://graphcomment.com/fr/auth.html?gc_token=[TOKEN-without-JWT-only-token]
 
-to destroy session localStorage, call this url in ajax navigator of user => http://graphcomment.com/fr/destroy.html
+to destroy session localStorage, call this url in an iframe with 0px width, 0px width of user => https://graphcomment.com/fr/destroy.html
 
 Example : 
 
-http://graphcomment.com/fr/auth.html?gc_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY5ZjQ5OTk3NzkwOTBkODYyMDgwOTIiLCJ1c2VybmFtZSI6ImRhdmlkIGRqaWFuIiwiZW1haWwiOiJzaXJiYWxkdXJAZ21haWwuY29tIiwiZmFjZWJvb2tfaWQiOiIxMDE1NDE3Mjk2NzQ1MTQ5MSIsImdvb2dsZV9pZCI6IjExNjEwMTAxNzgxODA3MjI5MDk0OCIsInJvbGUiOJ1c2VyIiwicGljdHVyZSI6Ii9pbWFnZXMvYXZhdGFyXzMucG5nIiwibGFuZ3VhZ2UiOiJmciIsImZyb21fd2Vic2l0ZSI6IjU4MWQyMTlmOGRmY2EwMzlhY2MMGZiZiIsInZhbGlkYXRpb24iOnt9LCJpYXQiOjE0OTk2ODYxMjIsImV4cCI6MTUwMjI3ODEyMn0.YyiANmL4-wzu1XGak1SbBmywZOWLHwjYsXtBW-Ikqx4
+Connexion :
+
+`<iframe src="https://graphcomment.com/fr/auth.html?gc_token=eyJhbGciOiJIUzI1NiIsInR5cCI6kpXVCJ9.eyJfaWQiOiI1OGY5ZjQ5OTk3NzkwOTBkODYyMDgwOTIiLCJ1c2VybmFtZSI6ImRhdmlkIGRqaWFuIiwiZW1haWwiOiJzaXJiYWxkdXJAZ21haWwuY29tIiwiZmFjZWJvb2tfaWQiOiIxMDE1NDE3Mjk2NzQ1MTQ5MSIsImdvb2dsZV9pZCI6IjExNjEwMTAxNzgxODA3MjI5MDk0OCIsInJvbGUiOJ1c2VyIiwicGljdHVyZSI6Ii9pbWFnZXMvYXZhdGFyXzMucG5nIiwibGFuZ3VhZ2UiOiJmciIsImZyb21fd2Vic2l0ZSI6IjU4MWQyMTlmOGRmY2EwMzlhY2MMGZiZiIsInZhbGlkYXRpb24iOnt9LCJpYXQiOjE0OTk2ODYxMjIsImV4cCI6MTUwMjI3ODEyMn0.YyiANmL4-wzu1XGak1SbBmywZOWLHwjYsXtBW-Ikqx4
+" frameborder="0" style="width:0px;height:0px;"></iframe>`
+
+Disconnection :
+
+`<iframe src="https://graphcomment.com/fr/destroy.html" frameborder="0" style="width:0px;height:0px;"></iframe>`
 
 - Get the list of your users
 
