@@ -19,15 +19,13 @@ With this wrapper you will be able to :
 
 Example of implementation :
 
-`$client = new Sdk(GC);`
-
-`$client->authentification();`
+`$client = new Sdk(GC_PUBLIC_KEY, GC_SECRET_KEY);`
 
 after theses lines, you call the functions.
 
 - register a User
 
-`$client->registerUser('username', 'email', 'fr');`
+`$client->registerUser('username', 'email', 'fr', 'https://graphcomment.com/image.jpg');`
 
 This function return a json file containing its "gc_id" that must be save in your database to authenticate a user that is logging in.
 
@@ -50,12 +48,25 @@ Disconnection :
 
 `<iframe src="https://graphcomment.com/fr/destroy.html" frameborder="0" style="width:0px;height:0px;"></iframe>`
 
-- Get the list of your users
+- Get last informations from a user
 
-`$client->getUsersQuery("10", "1", "kevin");`
+`$client->getUser('gc_id');`
 
-get the list of users with name "kevin" that subscribe to GC.
+get user's informations, return a JSON.
 
-get the threads and comments by url of a page (without http or https) then return a json with all comments and interactions.
+{
+	gc_id: 'gc_id',
+	username: 'username',
+	email: 'email@email.com',
+	language : 'en',
+	picture : 'https://graphcomment.com/image.jpg'
+}
 
-`$client->getThread("//graphcomment.com/demo");`
+- Update a User on Graphcomment
+
+`$client->updateUser('gc_id', 'username', 'email', 'fr', 'https://graphcomment.com/image.jpg');`
+
+
+- Count Comments of a thread
+
+`$client->countCommentscountComments('https://graphcomment.com/thread.html', 'content123');`
