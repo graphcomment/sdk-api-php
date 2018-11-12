@@ -19,7 +19,7 @@ With this wrapper you will be able to :
 
 Example of implementation :
 
-`$client = new Sdk(username|email, account_password, Graphcomment_website_id);`
+`$client = new Sdk(GC);`
 
 `$client->authentification();`
 
