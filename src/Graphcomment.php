@@ -183,12 +183,12 @@ class Sdk
      * @param string $picture (full url only example : https://graphcomment.com/image.jpg)
      *
      * @return object JSON {
-        gc_id : data.gc_id,
-        res :'updated'
-        } or {
-            gc_id : data.gc_id,
-            res :'nothing updated'
-        }
+     *   gc_id : data.gc_id,
+     *  res :'updated'
+     *  } or {
+     *      gc_id : data.gc_id,
+     *      res :'nothing updated'
+     *  }
      */
     public function updateUser($gc_id, $username, $email, $language, $picture)
     {
