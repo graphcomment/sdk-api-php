@@ -21,55 +21,51 @@ class Sdk
     /**
      * @var
      */
-    protected $username;
-    protected $password;
-    protected $token;
-    protected $websiteId;
+    protected $gcPublic;
+    protected $gcSecret;
     protected $dir = 'https://graphcomment.com/api';
 
     /**
      * Sdk constructor.
-     * @param $username
-     * @param $password
-     * @param string $websiteId
+     * @param $GC_PUBLIC
+     * @param $GC_SECRET
      */
-    public function __construct($username, $password, $websiteId = "")
+    public function __construct($GC_PUBLIC, $GC_SECRET)
     {
-        $this->setUsername($username);
-        $this->setPassword($password);
-        $this->setWebsiteId($websiteId);
+        $this->setGcPublic($GC_PUBLIC);
+        $this->setGcSecret($GC_SECRET);
     }
 
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getGcPublic()
     {
-        return $this->username;
+        return $this->gcPublic;
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $gcPublic
      */
-    public function setUsername($username)
+    public function setGcPublic($gcPublic)
     {
-        $this->username = $username;
+        $this->gcPublic = $gcPublic;
     }
 
     /**
      * @return mixed
      */
-    public function getPassword()
+    public function getGcSecret()
     {
-        return $this->password;
+        return $this->gcSecret;
     }
 
     /**
-     * @param mixed $password
+     * @param mixed $gcSecret
      */
-    public function setPassword($password)
+    public function setGcSecret($gcSecret)
     {
-        $this->password = $password;
+        $this->gcSecret = $gcSecret;
     }
 
     /**
@@ -105,123 +101,30 @@ class Sdk
     }
 
     /**
-     * @return mixed
-     */
-    public function getWebsiteId()
-    {
-        return $this->websiteId;
-    }
-
-    /**
-     * @param mixed $websiteId
-     */
-    public function setWebsiteId($websiteId)
-    {
-        $this->websiteId = $websiteId;
-    }
-
-
-    /**
-     * Authentification() this method use to authenticate your account to allow the SDK.
-     * You must call after the constructor settings and before all methods.
-     *
-     * @return string  json response JWT
-     */
-    public function authentification()
-    {
-        $client = new Client();
-        $res = $client->request('POST', $this->getDir() . '/users/login',
-            [
-                'form_params' => [
-                    'username' => $this->getUsername(),
-                    'password' => $this->getPassword()
-                ],
-                'http_errors' => false
-            ]);
-
-        if ($res->getStatusCode() == "200") {
-            $result = json_decode($res->getBody());
-
-            $this->setToken($result->token);
-        } else {
-            return $res->getBody();
-        }
-    }
-
-    /**
-     * GetUsersQuery() this method call your members list and you can search by query and paginate the result.
-     *
-     * @param string $page_size
-     * @param string $page_nbr
-     * @param string $query
-     *
-     * @return string  json response user list
-     */
-    public function getUsersQuery($page_size = "10", $page_nbr = "1", $query = "user")
-    {
-        $client = new Client();
-        $res = $client->request('GET', $this->getDir() . '/users',
-            [
-                'headers' => [
-                    'Authorization' => 'JWT ' . $this->getToken()
-                ],
-                'query' => [
-                    'website_id' => $this->getWebsiteId(),
-                    'page_size' => $page_size,
-                    'page_nbr' => $page_nbr,
-                    'query' => $query
-                ],
-                'http_errors' => false
-            ]);
-
-        return $res->getBody();
-    }
-
-    /**
      * registerUser() Register a user to Graphcomment.
      *
-     * @param string $username
-     * @param string $email
-     * @param string $language
+     * @param string $username required unique
+     * @param string $email required unique
+     * @param string $language (optionnal) default value : en (codes ISO 639-1)
+     * @param string $picture (full url only example : https://graphcomment.com/image.jpg)
      *
-     * @return string  json response gc_id to store in your database
+     * @return object  json response gc_id to store in your database
      */
-    public function registerUser($username, $email, $language = "en")
+    public function registerUser($username, $email, $language = "en", $picture = '')
     {
         $client = new Client();
-        $res = $client->request('POST', $this->getDir() . '/users/registerUserSdk',
-            [
-                'headers' => [
-                    'Authorization' => 'JWT ' . $this->getToken()
-                ],
-                'multipart' => [
-                    [
-                        'name' => 'username',
-                        'contents' => $username
-                    ],
-                    [
-                        'name' => 'email',
-                        'contents' => $email
-                    ],
-                    [
-                        'name' => 'language',
-                        'contents' => $language
-                    ],
-                    [
-                        'name' => 'from_website',
-                        'contents' => $this->getWebsiteId()
-                    ]
-                ],
-                'query' => [
-                    'website_id' => $this->getWebsiteId()
-                ],
-                'http_errors' => false
-            ]);
+        $data = array(
+            "username" => $username, // required unique
+            "email" => $email, // required unique
+            "language" => $language, //(optionnal) default value : en (codes ISO 639-1)
+            "picture" => $picture // (optionnal) full url only
+        );
+
+        $res = $client->request('POST', $this->getDir() . '/pub/sso/registerUser/pubkey/' . urlencode($this->getGcPublic()) . '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false]);
 
         if ($res->getStatusCode() == "200") {
             return $res->getBody();
-        }
-        else {
+        } else {
             return $res->getBody();
         }
     }
@@ -231,48 +134,166 @@ class Sdk
      *
      * @param string $gc_id
      *
-     * @return string  json JWT response
+     * @return object  json JWT response
      */
     public function loginUser($gc_id)
     {
         $client = new Client();
-        $res = $client->request('POST', $this->getDir() . '/users/loginSdk',
-            [
-                'headers' => [
-                    'Authorization' => 'JWT ' . $this->getToken()
-                ],
-                'form_params' => [
-                    'gc_id' => $gc_id,
-                    'website_id' => $this->getWebsiteId()
-                ],
-                'http_errors' => false
-            ]);
+
+        $data = array(
+            "gc_id" => $gc_id
+        );
+
+        $res = $client->request('POST', $this->getDir() . '/pub/sso/loginUser/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false]);
+
+        return $res->getBody();
+    }
+
+
+    /**
+     * getUser() return the informations that we have on the user
+     *
+     * @param $gc_id
+     * @return object JSON {
+     *
+     *
+     * }
+     */
+    public function getUser($gc_id)
+    {
+        $client = new Client();
+
+        $data = array(
+            "gc_id" => $gc_id
+        );
+
+        $res = $client->request('GET', $this->getDir() . '/pub/sso/getUser/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false]);
+
+        return $res->getBody();
+    }
+
+
+    /**
+     * updateUser() return the informations that we have on the user
+     *
+     * @param $gc_id
+     * @param string $username required unique
+     * @param string $email required unique
+     * @param string $language (optionnal) default value : en (codes ISO 639-1)
+     * @param string $picture (full url only example : https://graphcomment.com/image.jpg)
+     *
+     * @return object JSON {
+        gc_id : data.gc_id,
+        res :'updated'
+        } or {
+            gc_id : data.gc_id,
+            res :'nothing updated'
+        }
+     */
+    public function updateUser($gc_id, $username, $email, $language, $picture)
+    {
+        $client = new Client();
+
+        $data = array(
+            "gc_id" => $gc_id,
+            "username" => $username,
+            "email" => $email,
+            "language" => $language,
+            "picture" => $picture
+        );
+
+        $res = $client->request('PUT', $this->getDir() . '/pub/sso/updateUser/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false]);
+
+        return $res->getBody();
+    }
+
+
+    /**
+     * deleteUser() delete a user and return ok confirmation.
+     *
+     * @param string $gc_id
+     *
+     * @return string ok
+     */
+    public function deleteUser($gc_id)
+    {
+        $client = new Client();
+
+        $data = array(
+            "gc_id" => $gc_id
+        );
+
+        $res = $client->request('DELETE', $this->getDir() . '/pub/sso/deleteProfileByGcId/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false]);
+
+        return $res->getBody();
+    }
+
+
+
+    /**
+     * countComments() return the number thread's comment
+     *
+     * @param $url (full url only) required
+     * @param string $uid (unique id of the thread) optionnal
+     * @return object json {count: numberOfComments }
+     */
+    public function countComments($url, $uid='') {
+        $client = new Client();
+
+        $data = array(
+            "url" => $url,
+            "uid" => $uid
+        );
+
+        $res = $client->request('GET', $this->getDir() . '/pub/sso/numberOfComments/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false]);
 
         return $res->getBody();
     }
 
     /**
-     * getThread() Load the Thread of the url of the page with all comments of the thread for the SEO.
+     * generateSsoData() generate sso Data
      *
-     * @param string $url be "//domain/path" example //graphcomment.com/accueil.html
-     *
-     * @return string  json thread details
+     * @param $data array
+     * @return string
      */
-    public function getThread($url)
-    {
-        $client = new Client();
-        $res = $client->request('GET', $this->getDir() . '/website/'.$this->getWebsiteId().'/Threadload',
-            [
-                'headers' => [
-                    'Authorization' => 'JWT ' . $this->getToken()
-                ],
-                'query' => [
-                    'website_id' => $this->getWebsiteId(),
-                    'url' => $url,
-                ],
-                'http_errors' => false
-            ]);
+    private function generateSsoData($data) {
+        $message = base64_encode(json_encode($data));
+        $timestamp = time();
 
-        return $res->getBody();
+        $hexsig = $this->gcHmacsha1($message . ' ' . $timestamp, $this->getGcSecret());
+
+        return $message . ' ' . $hexsig . ' ' . $timestamp;
+    }
+
+    /**
+     * gcHmacsha1() encode datas
+     *
+     * @param $data
+     * @param $key
+     * @return string
+     */
+    private function gcHmacsha1($data, $key)
+    {
+
+        $blocksize = 64;
+        $hashfunc = 'sha1';
+
+        if (strlen($key) > $blocksize)
+            $key = pack('H*', $hashfunc($key));
+
+        $key = str_pad($key, $blocksize, chr(0x00));
+        $ipad = str_repeat(chr(0x36), $blocksize);
+        $opad = str_repeat(chr(0x5c), $blocksize);
+        $hmac = pack(
+            'H*', $hashfunc(
+                ($key ^ $opad) . pack(
+                    'H*', $hashfunc(
+                        ($key ^ $ipad) . $data
+                    )
+                )
+            )
+        );
+
+        return bin2hex($hmac);
     }
 }
