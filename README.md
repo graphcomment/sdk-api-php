@@ -14,8 +14,9 @@ With this wrapper you will be able to :
 
 - Register automatically a new User on GraphComment whenever he subscribe on your website.
 - Connect a user to GraphComment when he logs in to your website.
-- Get the list of all your users who are registered on GraphComment.
-- Get the list of threads and comments attached to a page by its url.
+- Get the user information saved in graphcomment.
+- Update the user information from your system to graphcomment.
+- Get the count of comments active on a thread.
 
 Example of implementation :
 
