@@ -27,7 +27,7 @@ after theses lines, you call the functions.
 
 `$client->registerUser('username', 'email', 'fr', 'https://graphcomment.com/image.jpg');`
 
-This function return a json file containing its "gc_id" that must be save in your database to authenticate a user that is logging in.
+This function return a json file containing its "gc_id" that must be save in your database to authenticate a user that is logging in and do_sync date of synchronisation to save too.
 
 - login a User, this function return the token JWT as JSON that you must save in localStorage to authenticate Graphcomment.
 
@@ -60,13 +60,15 @@ get user's informations, return a JSON.
 	username: 'username',
 	email: 'email@email.com',
 	language : 'en',
-	picture : 'https://graphcomment.com/image.jpg'
+	picture : 'https://graphcomment.com/image.jpg',
+	do_sync : date of synchronisation
 }
 ```
 - Update a User on Graphcomment
 
 `$client->updateUser('gc_id', 'username', 'email', 'fr', 'https://graphcomment.com/image.jpg');`
 
+return do_sync date and gc_id with state 'updated'
 
 - Count Comments of a thread
 

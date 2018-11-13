@@ -92,7 +92,7 @@ class Sdk
      * @param string $language (optionnal) default value : en (codes ISO 639-1)
      * @param string $picture (full url only example : https://graphcomment.com/image.jpg)
      *
-     * @return object  json response gc_id to store in your database
+     * @return object  json response gc_id to store in your database and do_sync which define date of synchronisation
      */
     public function registerUser($username, $email, $language = "en", $picture = '')
     {
@@ -138,10 +138,7 @@ class Sdk
      * getUser() return the informations that we have on the user
      *
      * @param $gc_id
-     * @return object JSON {
-     *
-     *
-     * }
+     * @return object JSON with do_sync date, if changed, you must synchronise the informations.
      */
     public function getUser($gc_id)
     {
@@ -168,6 +165,7 @@ class Sdk
      *
      * @return object JSON {
      *   gc_id : data.gc_id,
+     *   do_sync : date of synchronisation
      *  res :'updated'
      *  } or {
      *      gc_id : data.gc_id,
