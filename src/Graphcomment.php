@@ -61,11 +61,11 @@ class Sdk
     }
 
     /**
-     * @param mixed $token
+     * @param mixed $gcSecret
      */
-    public function setToken($token)
+    public function setGcSecret($gcSecret)
     {
-        $this->token = $token;
+        $this->gcSecret = $gcSecret;
     }
 
     /**
