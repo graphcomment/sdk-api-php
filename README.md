@@ -103,3 +103,5 @@ message is present only if an error exist for a comment upgrade in our database.
 
 Comment export returns the comment if it has changed status, or if it has been edited by the user in case of account deletion or normal editing.
 you have to do an update or insert function depending on the case.
+
+So you can make a job to get all minutes and import the graphcomment comments in your database.
