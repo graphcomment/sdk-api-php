@@ -86,15 +86,17 @@ This query is limited by 20 comments for each query.
 
 `$client->exportConfirmComments([comment_id1, comment_id2, comment_id3...]);`
 
-This query return and array of object :
+This query return a JSON Array of object :
 
 ```
-[
- {_id : comment_id1, result: 'ok'},
- {_id : comment_id2, result: 'ko', message:'comment id not found'},
- {_id : comment_id3, result: 'ok'},
- 
-]
+{
+    [
+     {_id : comment_id1, result: 'ok'},
+     {_id : comment_id2, result: 'ko', message:'comment id not found'},
+     {_id : comment_id3, result: 'ok'},
+     
+    ]
+}
 ```
 
 message is present only if an error exist for a comment upgrade in our database.
