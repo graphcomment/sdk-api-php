@@ -75,3 +75,26 @@ return do_sync date and gc_id with state 'updated'
 - Count Comments of a thread
 
 `$client->countCommentscountComments('https://graphcomment.com/thread.html', 'content123');`
+
+- Export Comments to synchronise with your databases
+
+This query is limited by 20 comments for each query. 
+
+`$client->exportComments();`
+
+- Valid Import Comments in your system, send us confirmation
+
+`$client->exportConfirmComments([comment_id1, comment_id2, comment_id3...]);`
+
+This query return and array of object :
+
+```
+[
+ {_id : comment_id1, result: 'ok'},
+ {_id : comment_id2, result: 'ko', message:'comment id not found'},
+ {_id : comment_id3, result: 'ok'},
+ 
+]
+```
+
+message is present only if an error exist for a comment upgrade in our database.
