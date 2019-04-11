@@ -233,6 +233,40 @@ class Sdk
     }
 
     /**
+     * exportComments() return the comments to import in your system, group by 20 comments
+     *
+     * @return array of object json [{commentObject}]
+     */
+    public function exportComments() {
+        $client = new Client();
+
+        $data = array(
+            "command" => 'get_comments'
+        );
+
+        $res = $client->request('GET', $this->getDir() . '/pub/export-comments/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false, 'timeout' => 5]);
+
+        return $res->getBody();
+    }
+
+    /**
+     * exportConfirmComments() send id
+     *
+     * @param array $commentIds
+     *
+     * @return array of object json [{commentObject}]
+     */
+    public function exportConfirmComments(Array $commentIds) {
+        $client = new Client();
+
+        $data = $commentIds;
+
+        $res = $client->request('POST', $this->getDir() . '/pub/export-comments/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false, 'timeout' => 5]);
+
+        return $res->getBody();
+    }
+
+    /**
      * generateSsoData() generate sso Data
      *
      * @param $data array
