@@ -78,7 +78,7 @@ return do_sync date and gc_id with state 'updated'
 
 - Export Comments to synchronise with your databases
 
-This query is limited by 20 comments for each query. 
+This query is limited by 100 comments for each query. 
 
 `$client->exportComments();`
 
