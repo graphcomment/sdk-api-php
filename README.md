@@ -82,7 +82,7 @@ This query is limited by 100 comments for each query.
 
 `$client->exportComments();`
 
-list 100 message in json array :
+list 100 comments in json array :
 
 ```
 {
