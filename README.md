@@ -82,6 +82,82 @@ This query is limited by 100 comments for each query.
 
 `$client->exportComments();`
 
+list 100 message in json array :
+
+```
+{
+    comments : [
+     {
+         "cached_author": {
+           "username": "gc",
+           "email": "grdnlndn@gmail.com"
+         },
+         "guest": false,
+         "status": "approved",
+         "spam": false,
+         "_id": "5cb0621843647e1332eba194",
+         "content": "test from GC 7",
+         "thread": {
+           "_id": "5c790ace3f227b1ac45a29b7",
+           "url": "http://localhost:8080/?p=5",
+           "page_title": "Article with GC",
+           "guid": "http://localhost:8080/?p=5",
+           "uid": "5"
+         },
+         "author": {
+           "profiles": [
+             {
+               "language": "fr",
+               "_id": "5c790acd3f227b1ac45a29b6",
+               "username": "gc",
+               "email": "grdnlndn@gmail.com",
+               "uid": "1"
+             }
+           ],
+           "_id": "59c0cd87740e0704dba1cf6b"
+         },
+         "ip": "176.164.57.27",
+         "edited_at": "2019-04-12T10:02:00.376Z",
+         "created_at": "2019-04-12T10:02:00.343Z"
+       },
+       {
+           "cached_author": {
+             "username": "gc",
+             "email": "grdnlndn@gmail.com"
+           },
+           "guest": false,
+           "status": "deleted",
+           "spam": false,
+           "_id": "5cb0621843647e1332eba194",
+           "content": "test from GC 7",
+           "thread": {
+             "_id": "5c790ace3f227b1ac45a29b7",
+             "url": "http://localhost:8080/?p=5",
+             "page_title": "Article with GC",
+             "guid": "http://localhost:8080/?p=5",
+             "uid": "5"
+           },
+           "author": {
+             "profiles": [
+               {
+                 "language": "fr",
+                 "_id": "5c790acd3f227b1ac45a29b6",
+                 "username": "gc",
+                 "email": "grdnlndn@gmail.com",
+                 "uid": "1"
+               }
+             ],
+             "_id": "59c0cd87740e0704dba1cf6b"
+           },
+           "ip": "176.164.57.27",
+           "edited_at": "2019-04-12T10:02:00.376Z",
+           "created_at": "2019-04-12T10:02:00.343Z"
+         }
+     
+    ]
+}
+```
+
 - Valid Import Comments in your system, send us confirmation
 
 `$client->exportConfirmComments([comment_id1, comment_id2, comment_id3...]);`
