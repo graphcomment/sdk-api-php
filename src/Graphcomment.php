@@ -201,10 +201,6 @@ class Sdk
     {
         $client = new Client();
 
-        $data = array(
-            "gc_id" => $gc_id
-        );
-
         $res = $client->request('DELETE', $this->getDir() . '/pub/sso/deleteProfileByGcId/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
@@ -240,11 +236,7 @@ class Sdk
     public function exportComments() {
         $client = new Client();
 
-        $data = array(
-            "command" => 'get_comments'
-        );
-
-        $res = $client->request('GET', $this->getDir() . '/pub/export-comments/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData($data)), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('GET', $this->getDir() . '/pub/export-comments/pubkey/' . urlencode($this->getGcPublic()). '/key/' . urlencode($this->generateSsoData('key')), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
@@ -269,7 +261,7 @@ class Sdk
     /**
      * generateSsoData() generate sso Data
      *
-     * @param $data array
+     * @param $data array|string
      * @return string
      */
     private function generateSsoData($data) {
