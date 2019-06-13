@@ -234,7 +234,14 @@ class Sdk
         return $res->getBody();
     }
 
-
+    /**
+     * getThreadJsonLdFormat() return the number thread's comment
+     *
+     * @param $url (full url only) required
+     * @param string $uid (unique id of the thread) optionnal
+     * @return object json-ld
+     * @throws GuzzleException
+     */
     public function getThreadJsonLdFormat($url, $uid='') {
         $client = new Client();
 
