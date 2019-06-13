@@ -1,7 +1,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/build-status/master)
 
-#Graphcomment SDK API PHP version 2.0
+#Graphcomment SDK API PHP version 2.2
 
 install with composer :
 
@@ -174,6 +174,10 @@ This query return a JSON Array of object :
     ]
 }
 ```
+
+- Get JSON-LD Format From Url and Uid(optionnal) content for SEO
+
+`$client->getThreadJsonLdFormat('https://graphcomment.com/thread.html', 'content123');`
 
 message is present only if an error exist for a comment upgrade in our database.
 

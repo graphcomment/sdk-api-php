@@ -1,6 +1,6 @@
 <?php
 /**
- * Wrapper API Graphcomment v2.0.
+ * Wrapper API Graphcomment v2.2
  * @author ddtraceweb <david@semiologic.fr>
  * @copyright 2018 Graphcomment
  * Date: 12/11/2018
@@ -10,6 +10,7 @@
 namespace Graphcomment;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class Sdk
@@ -93,6 +94,7 @@ class Sdk
      * @param string $picture (full url only example : https://graphcomment.com/image.jpg)
      *
      * @return object  json response gc_id to store in your database and do_sync which define date of synchronisation
+     * @throws GuzzleException
      */
     public function registerUser($username, $email, $language = "en", $picture = '')
     {
@@ -119,6 +121,7 @@ class Sdk
      * @param string $gc_id
      *
      * @return object  json JWT response
+     * @throws GuzzleException
      */
     public function loginUser($gc_id)
     {
@@ -139,6 +142,7 @@ class Sdk
      *
      * @param $gc_id
      * @return object JSON with do_sync date, if changed, you must synchronise the informations.
+     * @throws GuzzleException
      */
     public function getUser($gc_id)
     {
@@ -171,6 +175,7 @@ class Sdk
      *      gc_id : data.gc_id,
      *      res :'nothing updated'
      *  }
+     * @throws GuzzleException
      */
     public function updateUser($gc_id, $username, $email, $language, $picture)
     {
@@ -196,6 +201,7 @@ class Sdk
      * @param string $gc_id
      *
      * @return string ok
+     * @throws GuzzleException
      */
     public function deleteUser($gc_id)
     {
@@ -207,13 +213,13 @@ class Sdk
     }
 
 
-
     /**
      * countComments() return the number thread's comment
      *
      * @param $url (full url only) required
      * @param string $uid (unique id of the thread) optionnal
      * @return object json {count: numberOfComments }
+     * @throws GuzzleException
      */
     public function countComments($url, $uid='') {
         $client = new Client();
@@ -228,10 +234,25 @@ class Sdk
         return $res->getBody();
     }
 
+
+    public function getThreadJsonLdFormat($url, $uid='') {
+        $client = new Client();
+
+        $data = array(
+            "url" => $url,
+            "uid" => $uid
+        );
+
+        $res = $client->request('GET', $this->getDir() . '/pub/sso/thread-jsonld/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+
+        return $res->getBody();
+    }
+
     /**
      * exportComments() return the comments to import in your system, group by 20 comments
      *
      * @return array of object json [{commentObject}]
+     * @throws GuzzleException
      */
     public function exportComments() {
         $client = new Client();
@@ -247,6 +268,7 @@ class Sdk
      * @param array $commentIds
      *
      * @return array of object json [{commentObject}]
+     * @throws GuzzleException
      */
     public function exportConfirmComments(Array $commentIds) {
         $client = new Client();
