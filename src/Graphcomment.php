@@ -106,7 +106,7 @@ class Sdk
             "picture" => $picture // (optionnal) full url only
         );
 
-        $res = $client->request('POST', $this->getDir() . '/pub/sso/registerUser/pubkey/' . $this->getGcPublic() . '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('POST', $this->getDir() . '/pub/sso/registerUser/pubkey/' . $this->getGcPublic() . '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
 
         if ($res->getStatusCode() == "200") {
             return $res->getBody();
@@ -131,7 +131,7 @@ class Sdk
             "gc_id" => $gc_id
         );
 
-        $res = $client->request('POST', $this->getDir() . '/pub/sso/loginUser/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('POST', $this->getDir() . '/pub/sso/loginUser/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
@@ -152,7 +152,7 @@ class Sdk
             "gc_id" => $gc_id
         );
 
-        $res = $client->request('GET', $this->getDir() . '/pub/sso/getUser/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('GET', $this->getDir() . '/pub/sso/getUser/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
@@ -189,7 +189,7 @@ class Sdk
             "picture" => $picture
         );
 
-        $res = $client->request('PUT', $this->getDir() . '/pub/sso/updateUser/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('PUT', $this->getDir() . '/pub/sso/updateUser/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
@@ -207,7 +207,10 @@ class Sdk
     {
         $client = new Client();
 
-        $res = $client->request('DELETE', $this->getDir() . '/pub/sso/deleteProfileByGcId/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+        $data = array(
+            "gc_id" => $gc_id);
+
+        $res = $client->request('DELETE', $this->getDir() . '/pub/sso/deleteProfileByGcId/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
@@ -229,7 +232,7 @@ class Sdk
             "uid" => $uid
         );
 
-        $res = $client->request('GET', $this->getDir() . '/pub/sso/numberOfComments/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('GET', $this->getDir() . '/pub/sso/numberOfComments/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
@@ -250,7 +253,7 @@ class Sdk
             "uid" => $uid
         );
 
-        $res = $client->request('GET', $this->getDir() . '/pub/sso/thread-jsonld/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('GET', $this->getDir() . '/pub/sso/thread-jsonld/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
@@ -264,7 +267,7 @@ class Sdk
     public function exportComments() {
         $client = new Client();
 
-        $res = $client->request('GET', $this->getDir() . '/pub/export-comments/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData('key'), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('GET', $this->getDir() . '/pub/export-comments/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData('key'), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
@@ -282,7 +285,7 @@ class Sdk
 
         $data = $commentIds;
 
-        $res = $client->request('POST', $this->getDir() . '/pub/export-comments/pubkey/' . $this->getGcPublic(). '/key/' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
+        $res = $client->request('POST', $this->getDir() . '/pub/export-comments/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
 
         return $res->getBody();
     }
