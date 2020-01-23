@@ -1,6 +1,6 @@
 <?php
 /**
- * Wrapper API Graphcomment v2.2
+ * Wrapper API Graphcomment v2.3.2
  * @author ddtraceweb <david@semiologic.fr>
  * @copyright 2018 Graphcomment
  * Date: 12/11/2018
