@@ -1,7 +1,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/graphcomment/sdk-api-php/build-status/master)
 
-#Graphcomment SDK API PHP version 2.2
+#Graphcomment SDK API PHP version 2.3
 
 install with composer :
 
