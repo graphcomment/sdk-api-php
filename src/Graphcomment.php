@@ -242,15 +242,17 @@ class Sdk
      *
      * @param $url (full url only) required
      * @param string $uid (unique id of the thread) optionnal
+     * @param string $pageId (page id of the thread) optionnal for graphdebate
      * @return object json-ld
      * @throws GuzzleException
      */
-    public function getThreadJsonLdFormat($url, $uid='') {
+    public function getThreadJsonLdFormat($url, $uid='', $pageId='') {
         $client = new Client();
 
         $data = array(
             "url" => $url,
-            "uid" => $uid
+            "uid" => $uid,
+            "page_id" => $pageId
         );
 
         $res = $client->request('GET', $this->getDir() . '/pub/sso/thread-jsonld/pubkey/' . $this->getGcPublic(). '?key=' . $this->generateSsoData($data), ['http_errors' => false, 'timeout' => 5]);
